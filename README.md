@@ -102,18 +102,7 @@ SHOW TABLES;
 | service_requests  |
 +-------------------+
 ```
-### 🗄️ Database Design
-```
-┌────────────┐       ┌──────────────┐       ┌────────────────────┐
-│   USERS    │1     M│   VEHICLES   │1     M│  SERVICE_REQUESTS  │
-│────────────│-------│──────────────│-------│────────────────────│
-│ id (PK)    │       │ id (PK)      │       │ id (PK)            │
-│ name       │       │ model        │       │ description        │
-│ email      │       │ licensePlate │       │ status             │
-│ password   │       │ owner_id (FK)│       │ vehicle_id (FK)    │
-│ role       │       │              │       │ mechanic_id (FK)   │
-└────────────┘       └──────────────┘       └────────────────────┘
-```
+
 ### 5️⃣ Insert Sample Data (Admin, Customer, Mechanic)
 
 After the database and tables are ready, insert sample users and roles to test the system.
@@ -143,6 +132,19 @@ INSERT INTO service_requests (description, status, vehicle_id, mechanic_id) VALU
 - Passwords here are **plain text** only for testing (in production, they should be **encrypted using BCrypt**).
 - Roles help control **authorization** (e.g., only Admin can manage users, only Mechanics can update service status).
 - You can execute these commands directly in **MySQL Workbench** or **phpMyAdmin** after creating the database.
+
+  ### 🗄️ Database Design
+```
+┌────────────┐       ┌──────────────┐       ┌────────────────────┐
+│   USERS    │1     M│   VEHICLES   │1     M│  SERVICE_REQUESTS  │
+│────────────│-------│──────────────│-------│────────────────────│
+│ id (PK)    │       │ id (PK)      │       │ id (PK)            │
+│ name       │       │ model        │       │ description        │
+│ email      │       │ licensePlate │       │ status             │
+│ password   │       │ owner_id (FK)│       │ vehicle_id (FK)    │
+│ role       │       │              │       │ mechanic_id (FK)   │
+└────────────┘       └──────────────┘       └────────────────────┘
+```
 
 ## 6️⃣ 🚀 API Endpoints Documentation
 
