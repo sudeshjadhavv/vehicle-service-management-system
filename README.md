@@ -69,7 +69,7 @@ Before running this project, make sure you have:
 ### 🧩 Steps to Run Locally
 
 bash
-### 1️ Clone the repository
+### 1️⃣ Clone the repository
  git clone https://github.com/sudeshjadhavv/vehicle-service-management-system.git
 ### 2️⃣ Navigate to the project directory
 cd vehicle-service-management-system
