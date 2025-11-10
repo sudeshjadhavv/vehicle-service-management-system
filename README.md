@@ -130,20 +130,21 @@ Before running this project, make sure you have:
 
 ### 🧩 Steps to Run Locally
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/sudeshjadhavv/vehicle-service-management-system.git
-   cd vehicle-service-management-system
+bash
+### 1️ Clone the repository
+ git clone https://github.com/sudeshjadhavv/vehicle-service-management-system.git
+### 2️⃣ Navigate to the project directory
+cd vehicle-service-management-system
 
 ### 🗄️ Database Setup Guide
 
 Follow these steps to configure and connect your MySQL database with the Vehicle Service Management System:
 
-### 1️⃣ Create the Database
+### 3️⃣ Create the Database
 ```sql
 CREATE DATABASE vehicle_service_management;
 ```
-### 2️⃣ Configure application.properties
+###  Configure application.properties
 ```
 spring.datasource.url=jdbc:mysql://localhost:3306/vehicle_service_management
 spring.datasource.username=root
@@ -152,17 +153,17 @@ spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
 ```
-# JWT Secret (use any random string)
+### JWT Secret (use any random string)
 ```
 app.jwt-secret=your_jwt_secret_key
 app.jwt-expiration=86400000
 ```
-### 3️⃣ Run the Application
+### 4️⃣ Run the Application
 ```
 bash
 mvn spring-boot:run
 ```
-### 4️⃣ Verify Database Tables
+### 5️⃣ Verify Database Tables
 
 Once the application starts successfully, open **MySQL Workbench** and verify that these tables are created:
 
@@ -189,7 +190,7 @@ SHOW TABLES;
 └────────────┘       └──────────────┘       └────────────────────┘
 ```
 
-### 5️⃣ Insert Sample Data (Admin, Customer, Mechanic)
+###  Insert Sample Data (Admin, Customer, Mechanic)
 
 After the database and tables are ready, insert sample users and roles to test the system.
 
