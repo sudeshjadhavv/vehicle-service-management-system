@@ -222,7 +222,7 @@ INSERT INTO service_requests (description, status, vehicle_id, mechanic_id) VALU
 
 
 ## 6️⃣ 🚀 API Endpoints Documentation
----
+
 
 ## 🔐 Authentication Workflow
 
@@ -243,6 +243,7 @@ INSERT INTO service_requests (description, status, vehicle_id, mechanic_id) VALU
 ## 📡 API Endpoints
 
 ### 🔑 Authentication
+
 | Method | Endpoint | Description |
 |:-------:|:----------|:-------------|
 | POST | `/api/auth/register` | Register a new user (Admin, Customer, Mechanic) |
