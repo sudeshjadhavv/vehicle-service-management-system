@@ -40,68 +40,6 @@ A **Spring Boot**-based backend application for managing vehicle servicing opera
 
 ---
 
-### 📂 Project Structure
-
-```
-Vehicle_Service_Management_System
-│
-├── src
-│   ├── main
-│   │   ├── java
-│   │   │   └── com.example.vehicleservice
-│   │   │       ├── config
-│   │   │       │   └── SecurityConfig.java
-│   │   │       │       → Configures Spring Security and JWT authentication.
-│   │   │       │
-│   │   │       ├── Controllers
-│   │   │       │   ├── AuthController.java
-│   │   │       │   ├── VehicleController.java
-│   │   │       │   ├── ServiceRequestController.java
-│   │   │       │   └── UserController.java
-│   │   │       │       → Handles incoming REST API requests and maps them to service layer methods.
-│   │   │       │
-│   │   │       ├── entities
-│   │   │       │   ├── User.java
-│   │   │       │   ├── Vehicle.java
-│   │   │       │   └── ServiceRequest.java
-│   │   │       │       → Represents database entities and their relationships (JPA/Hibernate).
-│   │   │       │
-│   │   │       ├── Repositories
-│   │   │       │   ├── UserRepository.java
-│   │   │       │   ├── VehicleRepository.java
-│   │   │       │   └── ServiceRequestRepository.java
-│   │   │       │       → Interfaces for database access using Spring Data JPA.
-│   │   │       │
-│   │   │       ├── security
-│   │   │       │   ├── CustomerUserDetailService.java
-│   │   │       │   ├── JwtAuthenticationEntryPoint.java
-│   │   │       │   ├── JwtAuthenticationFilter.java
-│   │   │       │   └── JwtTokenProvider.java
-│   │   │       │       → Manages JWT generation, validation, and authentication handling.
-│   │   │       │
-│   │   │       └── service
-│   │   │           ├── AuthService.java
-│   │   │           ├── AuthServiceImpl.java
-│   │   │           ├── VehicleService.java
-│   │   │           ├── RequestService.java
-│   │   │           └── UserService.java
-│   │   │               → Contains business logic and communication between controllers and repositories.
-│   │   │
-│   │   └── resources
-│   │       ├── application.properties
-│   │       └── data.sql
-│   │           → Configuration files and initial database data.
-│   │
-│   └── test
-│       └── java
-│           → Contains unit and integration tests.
-│
-├── pom.xml           → Maven project configuration and dependencies.
-├── HELP.md           → Spring Boot help file.
-├── mvnw / mvnw.cmd   → Maven wrapper scripts.
-└── target/           → Compiled output and build files.
-```
-
 ## 🧭 System Architecture
 
 The **Vehicle Service Management System** follows a layered architecture with the following components:
@@ -252,6 +190,7 @@ INSERT INTO service_requests (description, status, vehicle_id, mechanic_id) VALU
 ---
 
 ### 👤 Users
+
 | Method | Endpoint | Description | Access |
 |:-------:|:----------|:-------------|:---------|
 | GET | `/api/users` | Get all users | Admin |
@@ -261,6 +200,7 @@ INSERT INTO service_requests (description, status, vehicle_id, mechanic_id) VALU
 ---
 
 ### 🚗 Vehicles
+
 | Method | Endpoint | Description | Access |
 |:-------:|:----------|:-------------|:---------|
 | GET | `/api/vehicles` | Get all vehicles | Admin |
@@ -273,6 +213,7 @@ INSERT INTO service_requests (description, status, vehicle_id, mechanic_id) VALU
 ---
 
 ### 🧾 Service Requests
+
 | Method | Endpoint | Description | Access |
 |:-------:|:----------|:-------------|:---------|
 | GET | `/api/requests` | Get all service requests | Admin |
@@ -339,6 +280,67 @@ INSERT INTO service_requests (description, status, vehicle_id, mechanic_id) VALU
 {
   "status": "COMPLETED"
 }
+```
+### 📂 Project Structure
+
+```
+Vehicle_Service_Management_System
+│
+├── src
+│   ├── main
+│   │   ├── java
+│   │   │   └── com.example.vehicleservice
+│   │   │       ├── config
+│   │   │       │   └── SecurityConfig.java
+│   │   │       │       → Configures Spring Security and JWT authentication.
+│   │   │       │
+│   │   │       ├── Controllers
+│   │   │       │   ├── AuthController.java
+│   │   │       │   ├── VehicleController.java
+│   │   │       │   ├── ServiceRequestController.java
+│   │   │       │   └── UserController.java
+│   │   │       │       → Handles incoming REST API requests and maps them to service layer methods.
+│   │   │       │
+│   │   │       ├── entities
+│   │   │       │   ├── User.java
+│   │   │       │   ├── Vehicle.java
+│   │   │       │   └── ServiceRequest.java
+│   │   │       │       → Represents database entities and their relationships (JPA/Hibernate).
+│   │   │       │
+│   │   │       ├── Repositories
+│   │   │       │   ├── UserRepository.java
+│   │   │       │   ├── VehicleRepository.java
+│   │   │       │   └── ServiceRequestRepository.java
+│   │   │       │       → Interfaces for database access using Spring Data JPA.
+│   │   │       │
+│   │   │       ├── security
+│   │   │       │   ├── CustomerUserDetailService.java
+│   │   │       │   ├── JwtAuthenticationEntryPoint.java
+│   │   │       │   ├── JwtAuthenticationFilter.java
+│   │   │       │   └── JwtTokenProvider.java
+│   │   │       │       → Manages JWT generation, validation, and authentication handling.
+│   │   │       │
+│   │   │       └── service
+│   │   │           ├── AuthService.java
+│   │   │           ├── AuthServiceImpl.java
+│   │   │           ├── VehicleService.java
+│   │   │           ├── RequestService.java
+│   │   │           └── UserService.java
+│   │   │               → Contains business logic and communication between controllers and repositories.
+│   │   │
+│   │   └── resources
+│   │       ├── application.properties
+│   │       └── data.sql
+│   │           → Configuration files and initial database data.
+│   │
+│   └── test
+│       └── java
+│           → Contains unit and integration tests.
+│
+├── pom.xml           → Maven project configuration and dependencies.
+├── HELP.md           → Spring Boot help file.
+├── mvnw / mvnw.cmd   → Maven wrapper scripts.
+└── target/           → Compiled output and build files.
 ```
 
 ## 🏁 Project Conclusion
