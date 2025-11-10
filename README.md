@@ -152,6 +152,11 @@ spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
 ```
+# JWT Secret (use any random string)
+```
+app.jwt-secret=your_jwt_secret_key
+app.jwt-expiration=86400000
+```
 ### 3️⃣ Run the Application
 ```
 bash
@@ -216,38 +221,123 @@ INSERT INTO service_requests (description, status, vehicle_id, mechanic_id) VALU
 
 
 ## 6️⃣ 🚀 API Endpoints Documentation
+---
 
-Below are the main RESTful API endpoints for the **Vehicle Service Management System**.  
-Use **Postman** to test each API.
+## 🔐 Authentication Workflow
 
-| Category     | Method | Endpoint                             | Role     | Description                |
-| ------------ | ------ | ------------------------------------ | -------- | -------------------------- |
-| **Auth**     | POST   | `/api/auth/register`                 | ALL      | Register new user          |
-|              | POST   | `/api/auth/login`                    | ALL      | Login and get JWT token    |
-| **Customer** | POST   | `/api/customer/vehicles`             | CUSTOMER | Add new vehicle            |
-|              | POST   | `/api/customer/requests`             | CUSTOMER | Create new service request |
-| **Admin**    | GET    | `/api/admin/requests`                | ADMIN    | View all service requests  |
-|              | POST   | `/api/admin/requests/{id}/assign`    | ADMIN    | Assign mechanic            |
-| **Mechanic** | PUT    | `/api/mechanic/requests/{id}/status` | MECHANIC | Update service status      |
+1. **Register User** → `/api/auth/register`  
+   User details (name, email, password, role) are saved in the database (passwords are encrypted).
 
-## 🧪 Testing in Postman
+2. **Login User** → `/api/auth/login`  
+   Returns a **JWT token** upon successful login.
 
-1️⃣ **Register or Login**  
-   - First, send a `POST` request to register or log in.  
-   - You will receive a **JWT token** in the login response.
+3. **Use JWT Token in Postman:**  
+   - Copy the token from the login response.  
+   - Go to the **Authorization** tab in Postman.  
+   - Choose **Bearer Token** and paste your token.  
+   - Now you can access all secured endpoints.
 
-2️⃣ **Copy the Token**  
-   - Copy the token value from the login response body.
+---
 
-3️⃣ **Add Token in Postman**  
-   - In Postman, go to the **Authorization** tab.  
-   - Choose **Bearer Token** as the type.  
-   - Paste your token into the token field.
+## 📡 API Endpoints
 
-4️⃣ **Access Secured Endpoints**  
-   - Now you can successfully access all secured API endpoints.  
-   - If the token expires, log in again to get a new token.
+### 🔑 Authentication
+| Method | Endpoint | Description |
+|:-------:|:----------|:-------------|
+| POST | `/api/auth/register` | Register a new user (Admin, Customer, Mechanic) |
+| POST | `/api/auth/login` | Login and get JWT token |
 
+---
+
+### 👤 Users
+| Method | Endpoint | Description | Access |
+|:-------:|:----------|:-------------|:---------|
+| GET | `/api/users` | Get all users | Admin |
+| GET | `/api/users/{id}` | Get user by ID | Admin |
+| DELETE | `/api/users/{id}` | Delete user | Admin |
+
+---
+
+### 🚗 Vehicles
+| Method | Endpoint | Description | Access |
+|:-------:|:----------|:-------------|:---------|
+| GET | `/api/vehicles` | Get all vehicles | Admin |
+| GET | `/api/vehicles/{id}` | Get vehicle by ID | Admin/Customer |
+| GET | `/api/vehicles?ownerId={ownerId}` | Get vehicles by owner ID | Customer |
+| POST | `/api/vehicles?ownerId={ownerId}` | Add a new vehicle for a customer | Admin/Customer |
+| PUT | `/api/vehicles/{id}` | Update vehicle details | Admin |
+| DELETE | `/api/vehicles/{id}` | Delete vehicle | Admin |
+
+---
+
+### 🧾 Service Requests
+| Method | Endpoint | Description | Access |
+|:-------:|:----------|:-------------|:---------|
+| GET | `/api/requests` | Get all service requests | Admin |
+| GET | `/api/requests/{id}` | Get service request by ID | Admin/Customer/Mechanic |
+| GET | `/api/requests?status={status}` | Filter service requests by status | Admin/Mechanic |
+| POST | `/api/requests?vehicleId={vehicleId}` | Create new service request for a vehicle | Customer |
+| PUT | `/api/requests/{id}` | Update service request details | Admin/Mechanic |
+| POST | `/api/requests/{requestId}/assign?mechanicId={mechanicId}` | Assign mechanic to a request | Admin |
+| DELETE | `/api/requests/{id}` | Delete service request | Admin |
+
+---
+
+## 🧪 Testing with Postman
+
+### 1️⃣ Register a User
+**POST** → `http://localhost:8080/api/auth/register`  
+**Body (JSON):**
+```json
+{
+  "name": "Rahul Sharma",
+  "email": "rahul@gmail.com",
+  "password": "123456",
+  "role": "CUSTOMER"
+}
+```
+### 2️⃣ Login User
+
+**POST** → http://localhost:8080/api/auth/login
+**Body (JSON):**
+```json
+{
+  "email": "rahul@gmail.com",
+  "password": "123456"
+}
+```
+### 3️⃣ Add a Vehicle
+
+**POST** → http://localhost:8080/api/vehicles?ownerId=1
+**Body (JSON):**
+```json
+{
+  "model": "Swift",
+  "licensePlate": "MH12AB1234"
+}
+```
+### 4️⃣ Create a Service Request
+
+**POST** → http://localhost:8080/api/requests?vehicleId=1
+**Body (JSON):**
+```json
+{
+  "description": "Oil change and tire rotation"
+}
+```
+### 5️⃣ Assign Mechanic to Request (Admin only)
+
+**POST** → http://localhost:8080/api/requests/1/assign?mechanicId=2
+
+### 6️⃣ Update Service Status (Mechanic only)
+
+**PUT** → http://localhost:8080/api/requests/1
+**Body (JSON):**
+```json
+{
+  "status": "COMPLETED"
+}
+```
 
 ## 🏁 Project Conclusion
 
@@ -258,6 +348,38 @@ This project highlights a strong understanding of **Spring Security**, **JPA/Hib
 Overall, it showcases backend development skills that are crucial for **enterprise-level applications**, including maintainability, scalability, and security.
 
 ---
+
+## 🚀 Future Improvements
+
+Here are some ideas and planned enhancements to make the Vehicle Service Management System more powerful and production-ready:
+
+1. **🧭 Frontend Integration (React/Angular):**  
+   Build a user-friendly frontend interface for customers, mechanics, and admins.
+
+2. **📱 Customer Notifications:**  
+   Send SMS or email updates when a vehicle service request is created, assigned, or completed.
+
+3. **💳 Online Payment Integration:**  
+   Allow customers to pay online for services directly through the portal.
+
+4. **📊 Admin Dashboard & Analytics:**  
+   Add graphical reports showing service trends, mechanic performance, and revenue insights.
+
+5. **🧰 Advanced Role Management:**  
+   Introduce more granular permissions (e.g., sub-admin, workshop manager).
+
+6. **🗓️ Service Scheduling & Reminders:**  
+   Enable customers to book time slots and receive service reminders automatically.
+
+7. **☁️ Cloud Deployment:**  
+   Deploy the backend on AWS, Azure, or Render with CI/CD pipelines for continuous delivery.
+
+8. **🧪 Unit & Integration Testing:**  
+   Add JUnit and Mockito-based tests for improved code reliability and maintainability.
+
+---
+
+💡 *These improvements will enhance scalability, maintainability, and user experience, making the system ready for real-world deployment.*
 
 ## 📬 Contact Details
 
