@@ -14,7 +14,7 @@ A **Spring Boot**-based backend application for managing vehicle servicing opera
 | **Database** | MySQL |
 | **Security** | Spring Security with JWT |
 | **Build Tool** | Maven |
-| **API Testing** | Postman / Swagger |
+| **API Testing** | Postman  |
 | **Version Control** | Git & GitHub |
 
 ---
@@ -68,7 +68,6 @@ Before running this project, make sure you have:
 
 ### 🧩 Steps to Run Locally
 
-bash
 ### 1️⃣ Clone the repository
  git clone https://github.com/sudeshjadhavv/vehicle-service-management-system.git
 ### 2️⃣ Navigate to the project directory
@@ -388,7 +387,7 @@ Here are some ideas and planned enhancements to make the Vehicle Service Managem
 ## 📬 Contact Details
 
 **👤 Developer:** Sudesh Jadhav  
-**📧 Email:** *(sudeshjadhavv@gmail.com)*    
+**📧 Email:** *sudeshjadhavv@gmail.com*    
 **💻 GitHub:** [github.com/sudeshjadhavv](https://github.com/sudeshjadhavv)
 
 ---
