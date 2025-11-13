@@ -48,7 +48,7 @@ The **Vehicle Service Management System** follows a layered architecture with th
 - **Service Layer** → Contains business logic and communicates with repositories.  
 - **Repository Layer** → Manages database operations using Spring Data JPA.  
 - **Security Layer** → Handles JWT-based authentication and authorization.  
-- **Entity Layer** → Defines database models (Employee, Department, Role, User).  
+- **Entity Layer** → Defines database models (Users,Vehicles,Service_Requests).  
 
 This architecture ensures **scalability, maintainability, and clear separation of concerns.**
 
